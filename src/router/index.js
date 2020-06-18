@@ -22,6 +22,11 @@ Vue.use(VueRouter)
     name: 'Search',
     component: () => import("../views/Search.vue")
   },
+  {
+    path: '/tj',
+    name: 'Tj',
+    component: () => import("../views/tj.vue")
+  },
 
 ]
 
