@@ -87,12 +87,16 @@ export default {
   text-align: center;
 }
 .flooter-last{
+   font-size: 12px;
+      color: #666;
   text-align: center;
   ul{
     display: flex;
     justify-content: center;
+    
     span{
       padding: 0 10px;
+     
     }
   }
 }

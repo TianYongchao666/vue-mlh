@@ -6,7 +6,7 @@
       class="hw-one"
     />
 
-   <ul class="ak47" v-for="item in list" :key="item.eventId">
+    <ul class="ak47" v-for="item in list" :key="item.eventId">
       <li>
         <img :src="item.imageUrl" alt class="hw-two" />
         <span>{{item.englishName}}</span>
@@ -16,7 +16,6 @@
         <span>{{item.discountText}}</span>
       </li>
     </ul>
-
 
     <div class="flooter-last">
       <p>400-664-6698</p>
@@ -56,7 +55,7 @@ export default {
 
 <style lang="scss" scoped>
 .hw {
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   .hw-one {
@@ -67,39 +66,34 @@ export default {
       li {
         display: flex;
         flex-direction: column;
-       justify-content: center;
-       align-items: center;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
 }
 
-
-
-
 .hw-two {
-          width: 90%;
-          // height: 100px
-          margin-left: 5.556vw;
-        }
-        .ak47 span{
-          width: 100%;
-          color: #666;
-          display: inline-block;
-          text-align: center;
-              
-        }
-
-
-
-        .flooter-last{
+  width: 90%;
+  // height: 100px
+  margin-left: 5.556vw;
+}
+.ak47 span {
+  width: 100%;
+  color: #666;
+  display: inline-block;
   text-align: center;
-  ul{
+}
+
+.flooter-last {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  ul {
     display: flex;
     justify-content: center;
-    span{
+    span {
       padding: 0 10px;
-      color: #666;
     }
   }
 }
