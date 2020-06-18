@@ -4,11 +4,37 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+
+const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: "/site",
+    name: 'Site',
+    component: () => import("../views/admin/site.vue")
+  },
+  {
+    path: "/site-new",
+    name: 'Site-new',
+    component: () => import("../views/admin/site-new.vue")
+  },
+  {
+    path: "/login",
+    name: 'Login',
+    component: () => import("../views/admin/login.vue")
+  },
+  {
+    path: "/center",
+    name: 'Center',
+    component: () => import("../views/admin/center.vue")
+  },
+  {
+    path: "/reg",
+    name: 'Reg',
+    component: () => import("../views/admin/reg.vue")
   },
   {
     path: '/about',
@@ -22,11 +48,14 @@ Vue.use(VueRouter)
     name: 'Search',
     component: () => import("../views/Search.vue")
   },
+<<<<<<< HEAD
   {
     path: '/tj',
     name: 'Tj',
     component: () => import("../views/tj.vue")
   },
+=======
+>>>>>>> 9d985dc043b7d1c4a892712f8f4cc8ce4fa6e975
 
 ]
 
