@@ -15,11 +15,25 @@
       <van-tab title="折扣"></van-tab>
       <van-tab title="价格"></van-tab>
     </van-tabs>
+    <div class="promotions-box">
+      <div class="promotions">
+        <p>
+          <a href>
+            [免运]
+            <span>满688元免运费△</span>
+          </a>
+        </p>
+      </div>
+    </div>
     <div class="productlist">
       <div class="item" v-for="item in list" :key="item">
-        <img :src="item.imageUrl" />
-        <h2>菲拉格木黑色</h2>
-        <p>¥999</p>
+        <router-link :to="{name:'Detail',query:{id:item.productId}}">
+          <img :src="item.imageUrl" />
+        </router-link>
+        <span class="item-sp">当季新品</span>
+        <h2>{{item.brandName | spliceStr}}</h2>
+        <h6>{{item.productName}}</h6>
+        <p>¥{{item.marketPrice}}</p>
       </div>
     </div>
   </div>
@@ -34,6 +48,11 @@ export default {
       list: []
     };
   },
+  filters: {
+    spliceStr(str) {
+      return str.length > 10 ? str.substr(0, 15) + "..." : str;
+    }
+  },
   methods: {
     onClickLeft() {
       this.$router.go(-1);
@@ -46,17 +65,41 @@ export default {
   created() {
     axios
       .get(
-        "http://www.mei.com/appapi/event/product/v3?pageIndex=1&categoryId=2040204090000008380&key=&sort=&timestamp=1592309517482&summary=48fd02fed1c6679c182fc6c135438a31&platform_code=H5"
+        "http://www.mei.com/appapi/event/product/v3?pageIndex=1&categoryId=2121005100000004146&key=&sort=&timestamp=1592394043971&summary=80adbfc952010903693b530a61a96009&platform_code=H5"
       )
       .then((res, req) => {
-        console.log(res);
+        // console.log(res);
         this.list = res.data.products;
+        console.log(this.list);
       });
   }
 };
 </script>
 
-<style>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+.promotions-box {
+  padding-bottom: 0.8rem;
+}
+.promotions {
+  height: 2rem;
+  background-color: #fff;
+}
+.promotions a {
+  display: inline-block;
+  line-height: 2rem;
+  color: #dd2828;
+  font-size: 0.7rem;
+  margin-left: 1rem;
+}
+.promotions a span {
+  line-height: 2rem;
+  color: #000000;
+  font-size: 0.7rem;
+}
 .productlist {
   display: flex;
   flex-wrap: wrap;
@@ -64,22 +107,35 @@ export default {
   margin-bottom: 0.266667rem;
 }
 .item {
-  background-color: #f1f1f1;
-  /* line-height: 3rem; */
   margin: 0.3rem;
-  width: 45%;
+  width: 46%;
 }
 .item img {
   width: 100%;
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
+}
+.item-sp {
+  background: rgb(221, 40, 40);
+  color: rgb(255, 255, 255);
+  border: 0.013333rem solid rgb(221, 40, 40);
+  display: inline-block;
+  margin-right: 0.053333rem;
+  padding: 0 0.04rem;
+  font-size: 0.266667rem;
 }
 .item h2 {
-  font-size: 0.7rem;
-  font-weight: 900;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.item h6 {
+  line-height: 1.2rem;
+  font-weight: 300;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .item p {
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   color: red;
-  margin: 0.5rem auto;
 }
 </style>
