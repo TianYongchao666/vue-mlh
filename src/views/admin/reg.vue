@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="logD">
-      <p class="p1">账号密码注册</p>
+      <p class="p1">注册</p>
       <p class="p2">注册即送2600元新人红包</p>
     </div>
     <van-form @submit="onSubmit">
