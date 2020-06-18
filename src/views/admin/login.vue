@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
+    <div class="quit">
+      <p>×</p>
+    </div>
     <div class="logD">
-      <p class="p1">账号密码登录</p>
+      <p class="p1">密码登录</p>
       <p class="p2">注册即送2600元新人红包</p>
     </div>
     <van-form @submit="onSubmit">
@@ -30,10 +33,26 @@
   </div>
 </template> 
 <style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 .logD {
   height: 150px;
   margin-left: 30px;
   margin-top: 30px;
+}
+.hello {
+  overflow: hidden;
+}
+.quit {
+  width: 20px;
+  height: 10px;
+  margin-left: 80%;
+}
+.quit p {
+  font-size: 48px;
+  color: #969697;
 }
 </style>
   <script>
@@ -42,7 +61,10 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      // loginshow:["loginshow"],
+      // show:["show"]
+
     };
   },
   methods: {
@@ -60,6 +82,10 @@ export default {
          }
        }).then((res)=>{
          localStorage.setItem("token",res.data.token)
+        //  if(res.data.code=="success"){
+        //    this.loginshow == !loginshow
+        //    this.show == !show 
+        //  }
         
        })
         this.password=""

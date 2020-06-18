@@ -25,11 +25,14 @@ const routes = [
     name: 'Login',
     component: () => import("../views/admin/login.vue")
   },
-  // {
-  //   path: "/center",
-  //   name: 'Center',
-  //   component: () => import("../views/admin/center.vue")
-  // },
+  {
+    path: "/center",
+    name: 'Center',
+    component: () => import("../views/admin/center.vue"),
+    meta:{
+      needlogin:true
+    }
+  },
   {
     path: "/reg",
     name: 'Reg',

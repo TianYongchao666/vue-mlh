@@ -8,8 +8,9 @@
 
     <ul class="ak47" v-for="item in list" :key="item.eventId">
       <li>
-          <router-link :to="{name:'List',params:{id:item.categoryId,title:item.chineseName}}"> <img :src="item.imageUrl" alt class="hw-two" />
-</router-link>
+        <router-link :to="{name:'List',params:{id:item.categoryId,title:item.chineseName}}">
+          <img :src="item.imageUrl" alt class="hw-two" />
+        </router-link>
         <span>{{item.englishName}}</span>
         <br />
         <span>{{item.chineseName}}</span>
@@ -27,7 +28,7 @@
         <span>|</span>
         <li @click="login">登录</li>
         <span>|</span>
-        <li @click="reg">注册</li>
+        <li @click="center">个人中心</li>
       </ul>
       <p>浙ICP备16004860号-1</p>
     </div>
@@ -42,16 +43,16 @@ export default {
       list: []
     };
   },
-  methods:{
-reg(){
+  methods: {
+    center() {
       this.$router.push({
-        name:"Reg"
-      })
+        name: "Center"
+      });
     },
-     login(){
+    login() {
       this.$router.push({
-        name:"Login"
-      })
+        name: "Login"
+      });
     }
   },
   created() {

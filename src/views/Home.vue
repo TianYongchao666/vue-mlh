@@ -1,10 +1,12 @@
 <template>
   <div class="home">
     <div class="nav">
-     
+     <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_n844gajbyil.css">
         <div class="search-one">
-          <p @click="login">登录</p>
-
+          <p @click="login" v-if="loginshow">登录</p>  
+          <span class="iconfont icon-ren" v-if="show"></span>
+<!-- :loginshow="loginshow" -->
+<!-- :show="show" -->
           <van-search
             v-model="value"
             disabled
@@ -56,7 +58,9 @@ export default {
   data() {
     return {
       active: 0,
-      value: ""
+      value: "",
+      show:false,
+      loginshow:true
     };
   },
   methods: {
@@ -81,6 +85,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+ .icon-ren{
+   position: fixed;
+   top: 20px;
+   left: 20px;
+ }
 html,
 body,
 .home {

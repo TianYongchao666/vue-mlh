@@ -30,7 +30,7 @@
         <span>|</span>
         <li @click="login">登录</li>
         <span>|</span>
-        <li @click="reg">注册</li>
+       <li @click="center">个人中心</li>
       </ul>
       <p>浙ICP备16004860号-1</p>
     </div>
@@ -46,9 +46,9 @@ export default {
     };
   },
   methods:{
-reg(){
+ center(){
       this.$router.push({
-        name:"Reg"
+        name:"Center"
       })
     },
      login(){
