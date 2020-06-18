@@ -48,14 +48,11 @@ const routes = [
     name: 'Search',
     component: () => import("../views/Search.vue")
   },
-<<<<<<< HEAD
   {
     path: '/tj',
     name: 'Tj',
     component: () => import("../views/tj.vue")
   },
-=======
->>>>>>> 9d985dc043b7d1c4a892712f8f4cc8ce4fa6e975
 
 ]
 

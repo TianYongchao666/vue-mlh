@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div id="search">
     <div class="db">
       <van-search v-model="value" placeholder="MO CO一口直降低至2折" autofocus="true" class="ss" />
@@ -76,52 +75,6 @@ export default {
         //     list-style: none;
         //     // display: inline-block;
         // }
-=======
-    <div id="search">
-
-<div class="db">
- <van-search
-    v-model="value"
-    placeholder="请输入搜索关键词"
-   autofocus="true"
-   class="ss"
-  />
-<p @click="qx">取消</p>
-</div>
- 
-
-    </div>
-</template>
-<script>
-export default {
-    data() {
-    return {
-      value: '',
-    };
-  },
-  methods: {
-   qx(){
-       this.$router.push({
-           name:"Home"
-       })
-   }
-   
-  },
-};
-
-</script>
-
-<style lang="scss" scoped>
-.db{
-    display: flex;
-    justify-content:space-around;
-    .ss{
-        width: 80%;
-    }
-    p{
-        margin: 20px 15px;
-        color: #ccc;
->>>>>>> 9d985dc043b7d1c4a892712f8f4cc8ce4fa6e975
     }
 }
 </style>
