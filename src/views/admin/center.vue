@@ -8,7 +8,7 @@
           <i class="iconfont icon-xin1"></i>
         </div>
         <div class="right">
-          <p>17837147410</p>
+          <p>1783</p>
           <p>查看并编辑个人资料</p>
         </div>
       </div>
