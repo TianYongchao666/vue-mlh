@@ -1,12 +1,6 @@
 <template>
   <div class="herder">
-    <van-nav-bar
-      title="魅力惠"
-      right-text="首页"
-      left-arrow
-      bind:click-left="onClickLeft"
-      bind:click-right="onClickRight"
-    />
+    <van-nav-bar title="魅力惠" right-text="首页" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="center">
       <div class="profile">
         <link rel="stylesheet" href="http://at.alicdn.com/t/font_1575381_mqx988bhzd8.css" />
@@ -32,22 +26,29 @@
       </div>
       <hr />
       <div class="coupon">
-        <van-coupon-cell :coupons="coupons" :chosen-coupon="chosenCoupon" @click="showList = true" />
+        <link rel="stylesheet" href="http://at.alicdn.com/t/font_1575381_3wawyqxu31q.css" />
+        <p>优惠券</p>
+        <span>
+          <i class="iconfont icon-arrow-right"></i>
+        </span>
       </div>
-      <router-link class="site" to="/site">
-        <div class="site">
-          <p>我的地址</p>
-          <span>
-            <i class="iconfont icon-arrow-right"></i>
-          </span>
-        </div>
-      </router-link>
-      <div>
-        <van-cell is-link title="联系我们" @click="show = true" />
-        <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
+      <div class="site">
+        <link rel="stylesheet" href="http://at.alicdn.com/t/font_1575381_3wawyqxu31q.css" />
+        <p>我的地址</p>
+        <span>
+          <i class="iconfont icon-arrow-right"></i>
+        </span>
+      </div>
+      <div class="contact">
+        <link rel="stylesheet" href="http://at.alicdn.com/t/font_1575381_3wawyqxu31q.css" />
+        <p>联系我们</p>
+        <span>
+          <i class="iconfont icon-arrow-right"></i>
+        </span>
       </div>
       <div class="out">
-        <van-cell title="退出登录" @click="true" />
+        <link rel="stylesheet" href="http://at.alicdn.com/t/font_1575381_3wawyqxu31q.css" />
+        <p @click="home">退出登录</p>
         <span>
           <i class="iconfont icon-arrow-right"></i>
         </span>
@@ -110,6 +111,31 @@
   flex-direction: column;
   justify-content: center;
 }
+.coupon {
+  width: 100%;
+  height: 44px;
+  color: #323233;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border-color: #3333;
+}
+.coupon p {
+  width: 60px;
+  margin-left: 15px;
+  display: flex;
+  height: 30px;
+  margin-top: 10px;
+}
+.coupon span {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  margin-right: 7px;
+}
 .site {
   width: 100%;
   height: 44px;
@@ -119,8 +145,7 @@
   display: flex;
   justify-content: space-between;
   text-align: center;
-  border: 0, 0, 1px, 10px;
-  border-color: #969799;
+  border-color: #3333;
 }
 .site p {
   width: 60px;
@@ -136,6 +161,36 @@
   margin-top: 10px;
   margin-right: 7px;
 }
+.icon-arrow-right {
+  font-size: 24px;
+  height: 24px;
+  color: #969799;
+}
+.contact {
+  width: 100%;
+  height: 44px;
+  color: #323233;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border-color: #3333;
+}
+.contact p {
+  width: 60px;
+  margin-left: 15px;
+  display: flex;
+  height: 30px;
+  margin-top: 10px;
+}
+.contact span {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  margin-right: 7px;
+}
 .out {
   width: 100%;
   height: 44px;
@@ -145,10 +200,9 @@
   display: flex;
   justify-content: space-between;
   text-align: center;
-  border: 0, 0, 1px, 10px;
-  border-color: #969799;
+  border-color: #3333;
 }
-.out .van-cell title {
+.out p {
   width: 60px;
   margin-left: 15px;
   display: flex;
@@ -162,54 +216,15 @@
   margin-top: 10px;
   margin-right: 7px;
 }
-.icon-arrow-right {
-  font-size: 24px;
-  color: #969799;
-}
 </style>
 <script>
 export default {
   methods: {
     onClickLeft() {
-      Toast("返回");
+      this.$router.push({ name: "Home" });
     },
-    onClickRight() {
-      Toast("按钮");
-    }
-  },
-
-  data() {
-    return {
-      chosenCoupon: -1,
-      coupons: [coupon],
-      disabledCoupons: [coupon]
-    };
-  },
-  methods: {
-    onChange(index) {
-      this.showList = false;
-      this.chosenCoupon = index;
-    },
-    onExchange(code) {
-      this.coupons.push(coupon);
-    }
-  },
-  data() {
-    return {
-      show: false,
-      actions: [
-        { name: "电话客服" },
-        { name: "微信客服" },
-        { name: "微博客服" }
-      ]
-    };
-  },
-  methods: {
-    onSelect(item) {
-      // 默认情况下点击选项时不会自动收起
-      // 可以通过 close-on-click-action 属性开启自动收起
-      this.show = false;
-      Toast(item.name);
+    home() {
+      this.$router.push({ name: "Home" });
     }
   }
 };

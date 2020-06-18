@@ -3,9 +3,10 @@
     <router-link class="site" to="/site">
       <van-nav-bar
         title="魅力惠"
+        left-text="返回"
         left-arrow
-        bind:click-left="onClickLeft"
-        bind:click-right="onClickRight"
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
       />
     </router-link>
     <van-address-edit

@@ -3,11 +3,13 @@
     <!-- <div id="nav">
       <router-link to="/">首页</router-link> |
       <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view/>
+    </div>-->
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-
+a {
+  color: black;
+}
 </style>
