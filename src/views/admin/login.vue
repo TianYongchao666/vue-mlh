@@ -20,11 +20,9 @@
         placeholder="密码"
         :rules="[{ required: true, message: '请填写密码' }]"
       />
-      <router-link class="center" to="/center">
-        <div style="margin: 16px;">
-          <van-button round block type="info" native-type="submit">登录</van-button>
-        </div>
-      </router-link>
+      <div style="margin: 16px;">
+        <van-button round block type="info" native-type="submit">登录</van-button>
+      </div>
       <router-link class="reg" to="/reg">没有账号，我要注册</router-link>
     </van-form>
   </div>
