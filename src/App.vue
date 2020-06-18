@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/router/admin/login">登录</router-link>|
+    <!-- <div id="nav">
+      <router-link to="/">首页</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    </div> -->
+    <router-view/>
   </div>
 </template>
+
+<style lang="scss">
+
+</style>
