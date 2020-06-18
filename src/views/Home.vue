@@ -3,7 +3,7 @@
     <div class="nav">
      
         <div class="search-one">
-          <p>登录</p>
+          <p @click="login">登录</p>
 
           <van-search
             v-model="value"
@@ -64,6 +64,11 @@ export default {
       this.$router.push({
         name: "Search"
       });
+    },
+    login(){
+      this.$router.push({
+        name:"Login"
+      })
     }
   }
 };

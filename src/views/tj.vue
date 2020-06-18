@@ -75,7 +75,7 @@
         <span>|</span>
         <li>客户端</li>
         <span>|</span>
-        <li>个人中心</li>
+        <li @click="reg">注册</li>
       </ul>
       <p>浙ICP备16004860号-1</p>
     </div>
@@ -101,6 +101,15 @@ export default {
   //       });
   //     }
   //   },
+
+  methods:{
+    reg(){
+      this.$router.push({
+        name:"Reg"
+      })
+    }
+    
+  },
   created() {
     axios
       .get(
