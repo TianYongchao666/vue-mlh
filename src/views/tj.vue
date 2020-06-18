@@ -75,6 +75,8 @@
         <span>|</span>
         <li>客户端</li>
         <span>|</span>
+        <li>登录</li>
+        <span>|</span>
         <li @click="reg">注册</li>
       </ul>
       <p>浙ICP备16004860号-1</p>

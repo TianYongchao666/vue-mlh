@@ -24,7 +24,9 @@
         <span>|</span>
         <li>客户端</li>
         <span>|</span>
-        <li>个人中心</li>
+          <li>登录</li>
+        <span>|</span>
+        <li>注册</li>
       </ul>
       <p>浙ICP备16004860号-1</p>
     </div>
