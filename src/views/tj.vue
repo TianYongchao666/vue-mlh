@@ -35,7 +35,8 @@
 
       <ul v-for="i in floorOne" :key="i.eventId">
         <li>
-          <img :src="i.imageUrl" alt />
+          <router-link :to="{name:'List',params:{id:i.categoryId,title:i.chineseName}}"> <img :src="i.imageUrl" alt /></router-link>
+         
           <span>{{i.englishName}}</span>
           <span>{{i.chineseName}}</span>
           <span>{{i.discountText}}</span>
@@ -49,7 +50,7 @@
       />
       <ul v-for="b in floorTwo" :key="b.eventId">
         <li>
-          <img :src="b.imageUrl" alt />
+  <router-link :to="{name:'List',params:{id:b.categoryId,title:b.chineseName}}"> <img :src="b.imageUrl" alt /></router-link>
           <span>{{b.englishName}}</span>
           <span>{{b.chineseName}}</span>
           <span>{{b.discountText}}</span>
@@ -75,7 +76,7 @@
         <span>|</span>
         <li>客户端</li>
         <span>|</span>
-        <li>登录</li>
+        <li @click="login">登录</li>
         <span>|</span>
         <li @click="reg">注册</li>
       </ul>
@@ -109,6 +110,11 @@ export default {
       this.$router.push({
         name:"Reg"
       })
+    },
+     login(){
+      this.$router.push({
+        name:"Login"
+      })
     }
     
   },
@@ -133,7 +139,7 @@ export default {
       .then(res => {
         this.floorOne = res.data.lists[0].events;
         this.floorTwo = res.data.lists[1].events;
-        console.log(res.data.lists);
+        // console.log(res.data.lists);
         // console.log(res.data.lists.events.categoryId)
       });
   }

@@ -8,7 +8,8 @@
 
     <ul class="ak47" v-for="item in list" :key="item.eventId">
       <li>
-        <img :src="item.imageUrl" alt class="hw-two" />
+          <router-link :to="{name:'List',params:{id:item.categoryId,title:item.chineseName}}"> <img :src="item.imageUrl" alt class="hw-two" />
+</router-link>
         <span>{{item.englishName}}</span>
         <br />
         <span>{{item.chineseName}}</span>
@@ -24,9 +25,9 @@
         <span>|</span>
         <li>客户端</li>
         <span>|</span>
-          <li>登录</li>
+        <li @click="login">登录</li>
         <span>|</span>
-        <li>注册</li>
+        <li @click="reg">注册</li>
       </ul>
       <p>浙ICP备16004860号-1</p>
     </div>
@@ -40,6 +41,18 @@ export default {
     return {
       list: []
     };
+  },
+  methods:{
+reg(){
+      this.$router.push({
+        name:"Reg"
+      })
+    },
+     login(){
+      this.$router.push({
+        name:"Login"
+      })
+    }
   },
   created() {
     //   http://www.mei.com/appapi/silo/eventForH5?categoryId=women&pageIndex=1&timestamp=1592384074289&summary=7bad81fa689ef1058bd5d414e0036e4c&platform_code=H5

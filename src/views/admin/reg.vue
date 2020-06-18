@@ -21,7 +21,7 @@
         :rules="[{ required: true, message: '请填写密码' }]"
       />
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit">注册</van-button>
+        <van-button round block type="info" native-type="submit" @click="reg">注册</van-button>
       </div>
       <router-link class="login" to="/login">账号密码登录</router-link>
     </van-form>
@@ -35,6 +35,7 @@
 }
 </style>
   <script>
+  import axios from "axios"
 export default {
   data() {
     return {
@@ -45,7 +46,29 @@ export default {
   methods: {
     onSubmit(values) {
       console.log("submit", values);
+      
+    },
+    reg(){
+       axios({
+         method:'post',
+         url:'http://api.cat-shop.penkuoer.com/api/v1/auth/reg',
+         data:{
+           userName:this.username,
+           password:this.password
+         }
+       }).then((res)=>{
+         if(res.data.code=="success"){
+           alert("注册成功")
+           this.$router.push({
+             name:"Login"
+           })
+         }
+       })
+
+       this.password=""
+       this.username=""
     }
+
   }
 };
 </script>

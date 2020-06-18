@@ -13,7 +13,7 @@
             @click="Search()"
           />
 
-          <img src="../assets/images/锁.png" alt />
+          <img src="../assets/images/锁.png" alt  @click="Cart" />
         </div>
       
     </div>
@@ -69,7 +69,14 @@ export default {
       this.$router.push({
         name:"Login"
       })
-    }
+    },
+  Cart(){
+    this.$router.push({
+      name:"Cart"
+    })
+  }
+  
+  
   }
 };
 </script>

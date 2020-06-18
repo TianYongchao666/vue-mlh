@@ -5,10 +5,20 @@ import store from './store'
 import Vant from 'vant'
 import 'vant/lib/index.css';
 
-Vue.use(Vant);
+
 Vue.config.productionTip = false
+
+
+
+
+
+
+
+Vue.use(Vant);
+
+
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: h => h(App),
+}).$mount('#app');

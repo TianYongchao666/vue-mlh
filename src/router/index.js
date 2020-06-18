@@ -1,15 +1,14 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
-Vue.use(VueRouter)
-
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: "/site",
@@ -26,11 +25,11 @@ const routes = [
     name: 'Login',
     component: () => import("../views/admin/login.vue")
   },
-  {
-    path: "/center",
-    name: 'Center',
-    component: () => import("../views/admin/center.vue")
-  },
+  // {
+  //   path: "/center",
+  //   name: 'Center',
+  //   component: () => import("../views/admin/center.vue")
+  // },
   {
     path: "/reg",
     name: 'Reg',
@@ -53,11 +52,46 @@ const routes = [
     name: 'Tj',
     component: () => import("../views/tj.vue")
   },
+  {
+    path: '/list/:id',
+    name: 'List',
+    component: () => import('../views/List.vue'),
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: () => import('../views/Detail.vue'),
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('../views/Cart.vue'),
 
+    meta:{
+      needlogin:true
+    }
+   
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+});
+router.beforeEach((to,from,next)=>{
+  if(to.meta.needlogin){
+   if(localStorage.getItem("token")){
+    next()
+   }else{
+    next({
+      name:"Login"
+    })
+   }
+  }else{
+    next()
+  }
 })
 
-export default router
+
+
+
+export default router;

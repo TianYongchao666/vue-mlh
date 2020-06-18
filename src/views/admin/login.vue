@@ -22,7 +22,7 @@
       />
       <router-link class="center" to="/center">
         <div style="margin: 16px;">
-          <van-button round block type="info" native-type="submit">登录</van-button>
+          <van-button round block type="info" native-type="submit" @click="login">登录</van-button>
         </div>
       </router-link>
       <router-link class="reg" to="/reg">没有账号，我要注册</router-link>
@@ -37,6 +37,7 @@
 }
 </style>
   <script>
+  import axios from "axios"
 export default {
   data() {
     return {
@@ -47,7 +48,24 @@ export default {
   methods: {
     onSubmit(values) {
       console.log("submit", values);
-    }
+
+    },
+    login(){
+        axios({
+         method:'post',
+         url:'http://api.cat-shop.penkuoer.com/api/v1/auth/login',
+         data:{
+           userName:this.username,
+           password:this.password
+         }
+       }).then((res)=>{
+         localStorage.setItem("token",res.data.token)
+        
+       })
+        this.password=""
+       this.username=""
+    },
+   
   }
 };
 </script>
