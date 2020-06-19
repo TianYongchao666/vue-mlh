@@ -113,7 +113,7 @@ export default {
   created() {
     if(localStorage.getItem("shop-carts")!==null){
        this.list = JSON.parse(localStorage.getItem("shop-carts"));
-    // console.log(this.list);
+    // console.log(this.list); 
     }
    
   }

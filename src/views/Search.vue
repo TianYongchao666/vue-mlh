@@ -6,21 +6,20 @@
     </div>
 
     <div class="SF">
-        <p>搜索发现</p>
-        <ul v-for="item in list" :key="item.findKeyWord">
-            <li>{{item.findKeyWord}}</li>
-            
-        </ul>
+      <p>搜索发现</p>
+      <ul v-for="item in list" :key="item.findKeyWord">
+        <li>{{item.findKeyWord}}</li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
   data() {
     return {
       value: "",
-      list:[]
+      list: []
     };
   },
   methods: {
@@ -30,51 +29,37 @@ export default {
       });
     }
   },
-  created(){
-      axios.get("http://www.mei.com/appapi/search/searchFind/v3").then((res)=>{
-          console.log(res.data.searchFindList)
-          this.list= res.data.searchFindList
-      })
+  created() {
+    axios.get("http://www.mei.com/appapi/search/searchFind/v3").then(res => {
+      console.log(res.data.searchFindList);
+      this.list = res.data.searchFindList;
+    });
   }
-  
-
 };
 </script>
 
 <style lang="scss" scoped>
 .db {
   display: flex;
-  justify-content: space-around;
   .ss {
-    width: 80%;
-  }
-  p {
-    margin: 20px 15px;
-    color: #ccc;
+    width: 90%;
+    
   }
 }
-.SF{
+.SF {
+  p{
+    margin-left: 11%;
+  }
+  ul {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    p{
-        width: 100%;
-        margin-left: 20px;
-        font-size: 20px;
-        color: #666;
+    //  margin: 20px 50px;
+    text-align: center;
+    margin-left: 11%;
+
+    li {
+      width: 26%;
+      float: left;
     }
-    ul{
-        display: flex;
-        // justify-content: center;
-        // align-items: center;
-        // display: inline-block;
-        // flex-wrap: wrap;
-        display: inline-block;
-        // li{
-        //   width: 30%;
-        //     list-style: none;
-        //     // display: inline-block;
-        // }
-    }
+  }
 }
 </style>
