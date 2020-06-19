@@ -1,15 +1,22 @@
 <template>
   <div class="list">
+      <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_w6jdi67p2b8.css">
+     <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_a58t8il84yd.css">
+
+<div class="gn">
+
+  <p class="iconfont icon-gouwuche-tubiao-tongyong-"></p>
+<p class="iconfont icon-huidaodingbujiantou"></p>
+</div>
+
     <van-nav-bar
-   
+   class="navss"
       :title="this.title"
       left-text="返回"
       right-text="按钮"
       left-arrow
       @click-left="onClickLeft"
    
-      fixed="ture"
-      placeholder="ture"
     />
     <van-tabs v-model="active" color="#999999">
       <van-tab title="人气"></van-tab>
@@ -43,12 +50,18 @@
 <script>
 import axios from "axios";
 export default {
+
+ 
+
+
+
   data() {
     return {
       active: 0,
       list: [],
       // nav:{}
-      title:""
+      title:"",
+      isshow:false
     };
   },
   filters: {
@@ -61,7 +74,15 @@ export default {
       this.$router.go(-1);
      
     },
+
+
+ 
+
+
+
    
+
+ 
   },
   created() {
     axios
@@ -85,6 +106,30 @@ this.title = res.data.eventName
 * {
   margin: 0;
   padding: 0;
+}
+/* .navss{
+  position: fixed;
+  top: 0;
+  height: 50px;
+  background: white;
+  display: inline-block;
+  width: 100%;
+  line-height: 50px;
+} */
+.icon-huidaodingbujiantou{
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+}
+.iconfont{
+  font-size: 20px;
+  color: #666;
+}
+
+.icon-gouwuche-tubiao-tongyong-{
+  position: fixed;
+  bottom: 80px;
+  right: 50px;
 }
 .promotions-box {
   padding-bottom: 0.8rem;

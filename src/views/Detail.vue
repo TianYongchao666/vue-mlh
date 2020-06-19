@@ -1,11 +1,12 @@
 <template>
   <div class="detail">
-
+  
 <van-nav-bar
    
-      title='商品详情'
-      left-text="返回"
-      right-text="按钮"
+     
+     
+      left-text=""
+      right-text=""
       left-arrow
       @click-left="onClickLeft"
      
@@ -19,7 +20,7 @@
     <h4>{{list.brand}}</h4>
     <h1>¥{{list.price}}</h1>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="item in images" :key="item">
+      <van-swipe-item v-for="item in images" :key="item.bigImgUrl">
         <img :src="item.bigImgUrl" />
       </van-swipe-item>
     </van-swipe>
@@ -48,7 +49,9 @@ export default {
     return {
       images: [],
       list: [],
-      badge: 0
+      badge: 0,
+      // title:"",
+      // price:""
     };
   },
   methods: {
@@ -71,6 +74,8 @@ export default {
       .then((res, req) => {
         this.images = res.data.infos.images;
         this.list = res.data.infos;
+        // this.title = res.data.infos.brand;
+        // this.price = res.data.infos.price;
         // console.log(this.list);
       });
   
