@@ -1,12 +1,12 @@
 <template>
   <div class="list">
-      <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_w6jdi67p2b8.css">
+      <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_w6jdi67p2b8.css" >
      <link rel="stylesheet" href="//at.alicdn.com/t/font_1575381_a58t8il84yd.css">
 
 <div class="gn">
 
-  <p class="iconfont icon-gouwuche-tubiao-tongyong-"></p>
-<p class="iconfont icon-huidaodingbujiantou"></p>
+  <p class="iconfont icon-gouwuche-tubiao-tongyong-" v-show="scrollTop>600?!isshow:isshow" @click="Cart"></p>
+<p class="iconfont icon-huidaodingbujiantou" @click="backtop" v-show="scrollTop>600?!isshow:isshow"></p>
 </div>
 
     <van-nav-bar
@@ -62,7 +62,8 @@ export default {
       list: [],
       // nav:{}
       title:"",
-      isshow:false
+      isshow:false,
+      scrollTop:''
     };
   },
   filters: {
@@ -70,13 +71,40 @@ export default {
       return str.length > 10 ? str.substr(0, 15) + "..." : str;
     }
   },
+
+  mounted() {
+       window.addEventListener("scroll",this.showbtn,true);
+    },
   methods: {
     onClickLeft() {
       this.$router.go(-1);
      
     },
+Cart(){
+this.$router.push({
+  name:"Cart"
+})
+},
+     showbtn(){
+          // let that = this;
+          let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+          this.scrollTop = scrollTop
+          // return that.scrollTop
+          // console.log(this)
+       
+       },
 
-
+    backtop(){
+          var timer = setInterval(function(){
+            let osTop = document.documentElement.scrollTop || document.body.scrollTop;
+            let ispeed = Math.floor(-osTop / 5); 
+            document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed;
+            this.isTop = true;
+            if(osTop === 0){
+              clearInterval(timer);
+            }
+          },30)
+      }
  
 
 
