@@ -9,8 +9,6 @@
         left-arrow
         @click-left="onClickLeft"
         @click-right="onClickRight"
-        fixed="ture"
-        placeholder="ture"
       />
     </div>
     <div class="cart-box">
@@ -24,26 +22,28 @@
       <div class="sp-box">
         <div class="sp-list">
           <ul>
-            <li v-for="item in list" :key="item">
+            <li v-for="item in list" :key="item.productId">
               <div class="ipt">
-                <input type="checkbox" />
+                <input v-model="item.isChecked" type="checkbox" />
               </div>
               <div class="sp-xx">
                 <div class="img">
-                  <img :src="item.imageUrl" alt />
+                  <img :src="item.img" alt />
                 </div>
                 <div class="sp-baseinfo">
-                  <h3>{{item.brandName}}</h3>
-                  <P>{{item.productName | spliceStr}}</P>
+                  <h3>{{item.brand}}</h3>
+                  <P>{{item.name}}</P>
                   <p>
-                    <span>红色</span>
+                    <span></span>
                     <span class="sp2">XL</span>
                   </p>
-                  <h4>￥{{item.price}}</h4>
+                  <h4>￥{{item.price*item.purchaseType}}</h4>
                   <div class="num">
-                    <button @click="subtract">-</button>
-                    <span>X{{amount}}</span>
-                    <button @click="add">+</button>
+                    <button
+                      @click="()=>{item.purchaseType<=1?item.purchaseType1:item.purchaseType--}"
+                    >-</button>
+                    <span>X{{item.purchaseType}}</span>
+                    <button @click="()=>{item.purchaseType++}">+</button>
                   </div>
                 </div>
               </div>
@@ -54,12 +54,12 @@
     </div>
     <div class="cart-footer" placeholder="ture">
       <div class="all">
-        <input type="checkbox" />&nbsp;全选
+        <input v-model="allChecked" type="checkbox" />&nbsp;全选
       </div>
       <div class="cart-zj">
         <p>
           总价:
-          <span>￥0.00</span>
+          <span>￥{{sumPrice}}</span>
         </p>
       </div>
       <div>
@@ -75,30 +75,39 @@ import Axios from "axios";
 export default {
   data() {
     return {
-      list: [],
-      amount: 6
+      list: []
     };
   },
-  filters: {
-    spliceStr(str) {
-      return str.length > 10 ? str.substr(0, 19) + "..." : str;
+  computed: {
+    sumPrice() {
+      return this.list
+        .filter(item => item.isChecked)
+        .reduce((pre, cur) => pre + cur.price * cur.purchaseType, 0);
+    },
+    allChecked: {
+      // 设置值
+      set(val) {
+        // console.log(val);
+        this.list.forEach(item => (item.isChecked = val));
+      },
+      // 取值
+      get() {
+        return (
+          this.list.filter(item => item.isChecked).length == this.list.length
+        );
+      }
     }
   },
   methods: {
     onClickLeft() {
-      Toast("返回");
+      this.$router.go(-1);
     },
-    onClickRight() {
-      Toast("按钮");
-    },
-    subtract() {
-      this.amount -= 1;
-    },
-    add() {
-      this.amount += 1;
-    }
+    onClickRight() {}
   },
-  created() {}
+  created() {
+    this.list = JSON.parse(localStorage.getItem("shop-carts"));
+    console.log(this.list);
+  }
 };
 </script>
 
@@ -166,22 +175,32 @@ ul li {
   width: 85%;
   height: 100%;
   padding: 10px 0;
-  display: flex;
   position: relative;
 }
 .img img {
-  height: 120px;
-  width: 90px;
+  height: 100%;
+  width: 30%;
+  margin-top: 1rem;
+  margin-left: -0.5rem;
+  float: left;
 }
 .sp-baseinfo {
   margin-left: 0.5rem;
+  float: right;
+  width: 67%;
 }
 .sp-baseinfo h3 {
   margin: 0.3rem 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .sp-baseinfo p {
   font-size: 12px;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .sp-baseinfo span {
   color: #cccccc;
@@ -196,7 +215,7 @@ ul li {
 .sp-baseinfo .num {
   position: absolute;
   right: 0.8rem;
-  bottom: 1.2rem;
+  bottom: 0.7rem;
   font-size: 12px;
 }
 .sp-baseinfo .num span {
@@ -239,5 +258,6 @@ ul li {
   height: 3.15rem;
   border: none;
   color: #fff;
+  background-color: #dd2828;
 }
 </style>

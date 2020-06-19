@@ -1,14 +1,12 @@
 <template>
   <div class="list">
     <van-nav-bar
-      title="标题"
+      :title="title"
       left-text="返回"
       right-text="按钮"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
-      fixed="ture"
-      placeholder="ture"
     />
     <van-tabs v-model="active" color="#999999">
       <van-tab title="人气"></van-tab>
@@ -26,8 +24,14 @@
       </div>
     </div>
     <div class="productlist">
-      <div class="item" v-for="item in list" :key="item">
-        <router-link :to="{name:'Detail',query:{id:item.productId}}">
+      <div class="item" v-for="item in list" :key="item.index">
+        <router-link
+          :to="{
+            name:'Detail',
+            query:{
+              id:item.productId
+          }}"
+        >
           <img :src="item.imageUrl" />
         </router-link>
         <span class="item-sp">当季新品</span>
@@ -40,12 +44,14 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import axios from "axios";
 export default {
   data() {
     return {
       active: 0,
-      list: []
+      list: [],
+      title: ""
     };
   },
   filters: {
@@ -55,8 +61,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      this.$router.go(-1);
-      Toast("返回");
+      Toast(this.$router.go(-1));
     },
     onClickRight() {
       Toast("按钮");
@@ -68,9 +73,11 @@ export default {
         "http://www.mei.com/appapi/event/product/v3?pageIndex=1&categoryId=2121005100000004146&key=&sort=&timestamp=1592394043971&summary=80adbfc952010903693b530a61a96009&platform_code=H5"
       )
       .then((res, req) => {
-        // console.log(res);
+        console.log(res);
+        this.title = res.data.eventName;
         this.list = res.data.products;
         console.log(this.list);
+        console.log(this.title);
       });
   }
 };

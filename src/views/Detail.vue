@@ -1,9 +1,18 @@
 <template>
   <div class="detail">
-    <h4>{{list.brand}}</h4>
+    <div class="title">
+      <van-nav-bar
+        :title="list.brand"
+        left-text="返回"
+        right-text="编辑"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+      />
+    </div>
     <h1>¥{{list.price}}</h1>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="item in images" :key="item">
+      <van-swipe-item v-for="item in images" :key="item.index">
         <img :src="item.bigImgUrl" />
       </van-swipe-item>
     </van-swipe>
@@ -16,32 +25,79 @@
 
     <van-goods-action>
       <router-link to="/cart">
-        <van-goods-action-icon icon="cart-o" text="购物车" badge="2" />
+        <van-goods-action-icon icon="cart-o" text="购物车" />
       </router-link>
 
-      <van-goods-action-button type="warning" text="加入购物车" @click="addCart" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="addCart()" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
 </template>
 
 <script>
+import { Toast } from "vant";
 import axios from "axios";
 export default {
   data() {
     return {
       images: [],
-      list: [],
-      badge: 0
+      list: {},
+      cartData: []
     };
   },
+  computed: {
+    // cartCount() {
+    //   return this.cartData.reduce((pre, cur) => {
+    //     return pre + cur.purchaseType;
+    //   }, 0);
+    // }
+  },
   methods: {
+    onClickLeft() {
+      this.$router.go(-1);
+    },
+    onClickRight() {},
     addCart() {
-      this.list;
+      this.cartData = localStorage.getItem("shop-carts")
+        ? JSON.parse(localStorage.getItem("shop-carts"))
+        : [];
+      var productsId = this.list.brandLogoId;
+      if (this.cartData.length < 1) {
+        this.cartData.push({
+          id: this.list.brandLogoId,
+          isChecked: this.list.isChecked,
+          img: this.list.images[0].bigImgUrl,
+          brand: this.list.brand,
+          name: this.list.name,
+          price: this.list.price,
+          purchaseType: this.list.purchaseType
+        });
+      } else {
+        var onoff = this.cartData.some(item => {
+          if (item.id == productsId) {
+            item.purchaseType++;
+            console.log(item.purchaseType);
+            return true;
+          }
+        });
+        if (onoff === false) {
+          // 本次加入的是新商品，直接添加
+          this.cartData.push({
+            id: this.list.brandLogoId,
+            isChecked: this.list.isChecked,
+            img: this.list.images[0].bigImgUrl,
+            brand: this.list.brand,
+            name: this.list.name,
+            price: this.list.price,
+            purchaseType: this.list.purchaseType
+          });
+        }
+      }
+      localStorage.setItem("shop-carts", JSON.stringify(this.cartData));
     }
   },
   created() {
-    // console.log(this.$route.query.id);
+    console.log(this.$route.query.id);
     axios
       .get(
         "http://www.mei.com/appapi/product/detail/v3?categoryId=2120005100000004140&productId=" +
@@ -49,27 +105,10 @@ export default {
       )
       .then((res, req) => {
         this.images = res.data.infos.images;
-        this.list = res.data.infos;
-        // console.log(this.list);
+        this.list = { ...res.data.infos, isChecked: false };
+        console.log(this.list);
       });
-    // this.$eventBus.$on("buyClick", v => {
-    // console.log(v);
-    // 查找符合条件的数据的下标
-    var index = this.list.findIndex(item => item.skuId == v.skuId);
-    if (index > -1) {
-      this.list[index].amount += 1;
-    } else {
-      this.list.push({ ...v, amount: 1, isChecked: false });
-    }
-    // 储存到本地
-    localStorage.setItem("shop-carts", JSON.stringify(this.list));
-
-    // this.cartCount++;
-    // });
-    var strlist = localStorage.getItem("shop-carts");
-    if (strlist) {
-      this.list = JSON.parse(strlist);
-    }
+    //需要先判断，判断之前购物车数据有没有，有的话，用原来的，没有的才是赋初值{}
   }
 };
 </script>
@@ -82,11 +121,6 @@ export default {
   line-height: 150px;
   text-align: center;
   /* background-color: #39a9ed; */
-}
-h4 {
-  font-size: 0.8rem;
-  font-weight: 900;
-  text-align: center;
 }
 h1 {
   font-size: 0.5rem;
@@ -112,6 +146,7 @@ h3 {
   margin-top: 0.3rem;
 }
 .my-swipe img {
+  height: 80%;
   width: 80%;
 }
 /* i {
