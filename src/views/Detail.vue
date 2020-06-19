@@ -1,26 +1,18 @@
 <template>
   <div class="detail">
-  
-<van-nav-bar
-   
-     
-     
-      left-text=""
-      right-text=""
-      left-arrow
-      @click-left="onClickLeft"
-     
-    
-      
-    />
-
-
-
-
-    <h4>{{list.brand}}</h4>
+    <div class="title">
+      <van-nav-bar
+        :title="list.brand"
+        left-text="返回"
+        right-text="编辑"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+      />
+    </div>
     <h1>¥{{list.price}}</h1>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="item in images" :key="item.bigImgUrl">
+      <van-swipe-item v-for="item in images" :key="item.index">
         <img :src="item.bigImgUrl" />
       </van-swipe-item>
     </van-swipe>
@@ -33,36 +25,83 @@
 
     <van-goods-action>
       <router-link to="/cart">
-        <van-goods-action-icon icon="cart-o" text="购物车" badge="2" />
+        <van-goods-action-icon icon="cart-o" text="购物车" />
       </router-link>
 
-      <van-goods-action-button type="warning" text="加入购物车" @click="addCart" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="addCart()" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
 </template>
 
 <script>
+import { Toast } from "vant";
 import axios from "axios";
 export default {
   data() {
     return {
       images: [],
-      list: [],
-      badge: 0,
-      // title:"",
-      // price:""
+      list: {},
+      cartData: []
     };
   },
+  computed: {
+    // cartCount() {
+    //   return this.cartData.reduce((pre, cur) => {
+    //     return pre + cur.purchaseType;
+    //   }, 0);
+    // }
+  },
   methods: {
+    onClickLeft() {
+      this.$router.go(-1);
+    },
+    onClickRight() {},
     addCart() {
-      this.list;
-    },
-     onClickLeft() {
-        this.$router.go(-1);
-     
-    },
-  
+      this.cartData = localStorage.getItem("shop-carts")
+        ? JSON.parse(localStorage.getItem("shop-carts"))
+        : [];
+      var productsId = this.$route.query.id;
+      // console.log(this.list)
+      // console.log(productsId);
+
+      if (this.cartData.length < 1) {
+        this.cartData.push({
+          id: this.$route.query.id,
+          isChecked: this.list.isChecked,
+          img: this.list.images[0].bigImgUrl,
+          brand: this.list.brand,
+          name: this.list.name,
+          price: this.list.price,
+          purchaseType: this.list.purchaseType
+        });
+      } else {
+        var onoff = this.cartData.some(item => {
+          // console.log(item.id);
+
+          if (item.id == productsId) {
+            item.purchaseType++;
+            // console.log(item.purchaseType);
+            return true;
+          }
+        });
+        // console.log(onoff);
+
+        if (onoff === false) {
+          // 本次加入的是新商品，直接添加
+          this.cartData.push({
+            id: this.$route.query.id,
+            isChecked: this.list.isChecked,
+            img: this.list.images[0].bigImgUrl,
+            brand: this.list.brand,
+            name: this.list.name,
+            price: this.list.price,
+            purchaseType: this.list.purchaseType
+          });
+        }
+      }
+      localStorage.setItem("shop-carts", JSON.stringify(this.cartData));
+    }
   },
   created() {
     // console.log(this.$route.query.id);
@@ -73,21 +112,10 @@ export default {
       )
       .then((res, req) => {
         this.images = res.data.infos.images;
-        this.list = res.data.infos;
-        // this.title = res.data.infos.brand;
-        // this.price = res.data.infos.price;
+        this.list = { ...res.data.infos, isChecked: false };
         // console.log(this.list);
       });
-  
-    // 储存到本地
-    localStorage.setItem("shop-carts", JSON.stringify(this.list));
-
-    // this.cartCount++;
-    // });
-    var strlist = localStorage.getItem("shop-carts");
-    if (strlist) {
-      this.list = JSON.parse(strlist);
-    }
+    //需要先判断，判断之前购物车数据有没有，有的话，用原来的，没有的才是赋初值{}
   }
 };
 </script>
@@ -100,11 +128,6 @@ export default {
   line-height: 150px;
   text-align: center;
   /* background-color: #39a9ed; */
-}
-h4 {
-  font-size: 0.8rem;
-  font-weight: 900;
-  text-align: center;
 }
 h1 {
   font-size: 0.5rem;
@@ -130,6 +153,7 @@ h3 {
   margin-top: 0.3rem;
 }
 .my-swipe img {
+  height: 80%;
   width: 80%;
 }
 /* i {

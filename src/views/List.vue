@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import axios from "axios";
 export default {
 
@@ -91,11 +92,12 @@ export default {
       )
       .then((res, req) => {
         // console.log(res);
+        this.title = res.data.eventName;
         this.list = res.data.products;
         // this.nav = res.data
         // console.log(this.$route.params.title)
 this.title = res.data.eventName
-        console.log(this.list);
+        // console.log(this.list);
     
       });
   }

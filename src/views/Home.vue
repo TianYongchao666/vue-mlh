@@ -77,6 +77,8 @@ export default {
   Cart(){
     this.$router.push({
       name:"Cart"
+    }).catch((res)=>{
+      
     })
   }
   
