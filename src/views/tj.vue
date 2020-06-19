@@ -317,11 +317,13 @@ export default {
     align-items: center;
     // flex: 1;
     img {
-      width: 41.667vw;
-      height: 28.333vw;
+      width: 150.001px;
+      height: 101.999px;
+      margin-left: 27px;
     }
     .tu2 {
-      margin-left: -416.667vw;
+      // width: 170px;
+      margin-left: -50px;
     }
   }
 }

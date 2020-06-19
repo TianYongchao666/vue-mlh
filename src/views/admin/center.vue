@@ -224,6 +224,7 @@ export default {
       this.$router.push({ name: "Home" });
     },
     home() {
+      localStorage.removeItem("token")
       this.$router.push({ name: "Home" });
     }
   }

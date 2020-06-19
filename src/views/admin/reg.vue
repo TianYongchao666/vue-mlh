@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="quit">
-      <p>×</p>
+      <p @click="home">×</p>
     </div>
     <div class="logD">
       <p class="p1">注册</p>
@@ -64,9 +64,14 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      console.log("submit", values);
-      
-    },
+      console.log("submit", values)
+      },
+
+      home(){
+        this.$router.push({
+          name:"Home"
+        })
+      },
     reg(){
        axios({
          method:'post',

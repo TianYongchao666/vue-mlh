@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div class="quit">
-      <p>×</p>
+      <p @click="home">×</p>
     </div>
     <div class="logD">
       <p class="p1">密码登录</p>
@@ -72,6 +72,12 @@ export default {
       console.log("submit", values);
 
     },
+
+    home(){
+       this.$router.push({
+           name:"Home"
+         })
+    },
     login(){
         axios({
          method:'post',
@@ -82,6 +88,9 @@ export default {
          }
        }).then((res)=>{
          localStorage.setItem("token",res.data.token)
+         this.$router.push({
+           name:"Center"
+         })
         //  if(res.data.code=="success"){
         //    this.loginshow == !loginshow
         //    this.show == !show 
