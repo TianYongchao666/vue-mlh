@@ -35,11 +35,14 @@
 
       <ul v-for="i in floorOne" :key="i.eventId">
         <li>
-          <router-link :to="{name:'List',params:{id:i.categoryId,title:i.chineseName}}"> <img :src="i.imageUrl" alt /></router-link>
-         
-          <span>{{i.englishName}}</span>
-          <span>{{i.chineseName}}</span>
-          <span>{{i.discountText}}</span>
+          <router-link :to="{name:'List',params:{id:i.categoryId,title:i.chineseName}}">
+            <img :src="i.imageUrl" alt />
+            <div class="spbox">
+              <p>{{i.englishName}}</p>
+              <span>{{i.chineseName}}</span>
+              <span>{{i.discountText}}</span>
+            </div>
+          </router-link>
         </li>
       </ul>
 
@@ -50,7 +53,9 @@
       />
       <ul v-for="b in floorTwo" :key="b.eventId">
         <li>
-  <router-link :to="{name:'List',params:{id:b.categoryId,title:b.chineseName}}"> <img :src="b.imageUrl" alt /></router-link>
+          <router-link :to="{name:'List',params:{id:b.categoryId,title:b.chineseName}}">
+            <img :src="b.imageUrl" alt />
+          </router-link>
           <span>{{b.englishName}}</span>
           <span>{{b.chineseName}}</span>
           <span>{{b.discountText}}</span>
@@ -105,18 +110,17 @@ export default {
   //     }
   //   },
 
-  methods:{
-    center(){
+  methods: {
+    center() {
       this.$router.push({
-        name:"Center"
-      })
+        name: "Center"
+      });
     },
-     login(){
+    login() {
       this.$router.push({
-        name:"Login"
-      })
+        name: "Login"
+      });
     }
-    
   },
   created() {
     axios
@@ -146,6 +150,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 .my-swipe .van-swipe-item {
   color: #fff;
   font-size: 5.556vw;
@@ -274,13 +282,23 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
+
       img {
-        width: 90%;
+        width: 100%;
         height: 57.5vw;
         margin: 1.389vw;
       }
-      span {
-        color: #666;
+      .spbox {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 16px;
+        bottom: 20px;
+        color: #fff;
+        p {
+          font-size: 1.22rem;
+        }
       }
     }
   }
